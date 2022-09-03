@@ -1,0 +1,42 @@
+---
+name: Test Push
+on:
+  workflow_dispatch:
+    inputs:
+      data:
+        required: true
+env:
+  AQUA_CONFIG: ${{github.workspace}}/.ci/aqua.yaml
+  MAIN_REPO_NAME: ${{fromJSON(inputs.data).event.repository.name}}
+jobs:
+  test-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "$INPUT" | jq
+        env:
+          INPUT: ${{inputs.data}}
+
+      - uses: gha-trigger/start-action@main
+        id: start
+        with:
+          data: ${{inputs.data}}
+          app_id: ${{secrets.APP_ID}}
+          app_private_key: ${{secrets.APP_PRIVATE_KEY}}
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.18.5'
+
+      - run: go run .
+        working-directory: foo
+        env:
+          GITHUB_TOKEN: ${{steps.start.outputs.github_app_token}}
+
+      - uses: suzuki-shunsuke/update-commit-status-action@main
+        if: always()
+        with:
+          repo_owner: ${{env.GHA_REPOSITORY_OWNER}}
+          repo_name: ${{env.MAIN_REPO_NAME}}
+          sha: ${{env.GHA_SHA}}
+          github_token: ${{steps.start.outputs.github_app_token}}
+          state: ${{job.status}}

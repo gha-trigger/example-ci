@@ -1,0 +1,11 @@
+---
+# https://github.com/suzuki-shunsuke/github-comment
+exec:
+  always:
+  - when: "true"
+    template: |
+      {{template "status" .}} {{template "link" .}}
+
+      {{template "join_command" .}}
+
+      {{template "hidden_combined_output" .}}
