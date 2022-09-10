@@ -7,8 +7,6 @@ on:
         required: true
 env:
   AQUA_CONFIG: ${{github.workspace}}/.ci/aqua.yaml
-  PR_NUMBER: ${{fromJSON(inputs.data).event.pull_request.number}}
-  MAIN_REPO_NAME: ${{fromJSON(inputs.data).event.repository.name}}
 jobs:
   test-pull-request:
     runs-on: ubuntu-latest
@@ -34,9 +32,9 @@ jobs:
         working-directory: foo
       - run: |
           github-comment exec \
-            -org ${{env.GHA_REPOSITORY_OWNER}} \
-            -repo ${{env.MAIN_REPO_NAME}} \
-            -pr $PR_NUMBER \
+            -org $GHA_REPOSITORY_OWNER \
+            -repo $GHA_REPOSITORY_NAME \
+            -pr $GHA_PULL_REQUEST_NUMBER \
             -k always -- go run .
         working-directory: foo
         env:

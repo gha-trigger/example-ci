@@ -7,7 +7,6 @@ on:
         required: true
 env:
   AQUA_CONFIG: ${{github.workspace}}/.ci/aqua.yaml
-  MAIN_REPO_NAME: ${{fromJSON(inputs.data).event.repository.name}}
 jobs:
   test-pull-request:
     runs-on: ubuntu-latest
