@@ -8,6 +8,13 @@ on:
 env:
   AQUA_CONFIG: ${{github.workspace}}/.ci/aqua.yaml
 jobs:
+  gha-trigger-summary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: gha-trigger/step-summary-action@v0.1.1
+        with:
+          data: ${{inputs.data}}
+
   test-pull-request:
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +22,7 @@ jobs:
         env:
           INPUT: ${{inputs.data}}
 
-      - uses: gha-trigger/start-action@v0.1.0
+      - uses: gha-trigger/start-action@v0.1.1
         id: start
         with:
           data: ${{inputs.data}}
