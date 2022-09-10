@@ -22,14 +22,7 @@ jobs:
           app_id: ${{secrets.APP_ID}}
           app_private_key: ${{secrets.APP_PRIVATE_KEY}}
 
-      - uses: actions/setup-go@v3
-        with:
-          go-version: '1.18.5'
-
-      - run: go run .
-        working-directory: foo
-        env:
-          GITHUB_TOKEN: ${{steps.start.outputs.github_app_token}}
+      - run: cat README.md
 
       - uses: gha-trigger/end-action@main
         if: always()
