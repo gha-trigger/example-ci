@@ -22,7 +22,7 @@ jobs:
         env:
           INPUT: ${{inputs.data}}
 
-      - uses: gha-trigger/start-action@v0.1.1
+      - uses: gha-trigger/start-action@v0.1.4
         id: start
         with:
           data: ${{inputs.data}}
@@ -42,7 +42,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{steps.start.outputs.github_app_token}}
 
-      - uses: gha-trigger/end-action@v0.1.0
+      - uses: gha-trigger/end-action@v0.1.2
         if: always()
         with:
           github_token: ${{steps.start.outputs.github_app_token}}
