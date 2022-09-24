@@ -24,7 +24,7 @@ jobs:
         env:
           INPUT: ${{inputs.data}}
 
-      - uses: gha-trigger/start-action@v0.1.4
+      - uses: gha-trigger/start-action@v0.1.6
         id: start
         with:
           data: ${{inputs.data}}
@@ -48,7 +48,7 @@ jobs:
     needs: [test-pull-request, gha-trigger-summary]
     if: always()
     steps:
-      - uses: gha-trigger/start-action@v0.1.4
+      - uses: gha-trigger/start-action@v0.1.6
         id: start
         with:
           data: ${{inputs.data}}
