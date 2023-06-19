@@ -11,7 +11,7 @@ jobs:
   gha-trigger-summary:
     runs-on: ubuntu-latest
     steps:
-      - uses: gha-trigger/step-summary-action@v0.1.1
+      - uses: gha-trigger/step-summary-action@7068760053beb8a2511bf3325028a7d6710621ab # v0.1.1
         with:
           data: ${{inputs.data}}
 
@@ -22,7 +22,7 @@ jobs:
         env:
           INPUT: ${{inputs.data}}
 
-      - uses: gha-trigger/start-action@v0.1.6
+      - uses: gha-trigger/start-action@664438edad0bf08d5dce7907e020f455cf1b1bc6 # v0.1.6
         id: start
         with:
           data: ${{inputs.data}}
@@ -31,7 +31,7 @@ jobs:
 
       - run: cat README.md
 
-      - uses: gha-trigger/end-action@v0.1.3
+      - uses: gha-trigger/end-action@6dc6fa0126248ee57cf384d7f0229952e4d2c655 # v0.1.3
         if: always()
         with:
           github_token: ${{steps.start.outputs.github_app_token}}
